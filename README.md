@@ -24,10 +24,22 @@ Templates are created by converting an existing VM to a template. As soon as the
 Creating a VM template is easy:
 
 ```sh
-packer build debian-10-buster.json
-```
+$ packer build debian-10-buster.json
+proxmox: output will be in this color.
 
-After a few minutes you should have a new VM Template!
+==> proxmox: Creating VM
+==> proxmox: No VM ID given, getting next free from Proxmox
+==> proxmox: Starting VM
+
+...
+
+==> proxmox: Stopping VM
+==> proxmox: Converting VM to template
+Build 'proxmox' finished.
+
+==> Builds finished. The artifacts of successful builds are:
+--> proxmox: A template was created: 102
+```
 
 ## Deploy a VM from a Template
 
