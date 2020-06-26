@@ -1,0 +1,64 @@
+{
+  "variables": {
+    "proxmox_host": "10.10.0.10:8006",
+    "proxmox_node": "pve-01",
+    "proxmox_api_user": "root@pam",
+    "proxmox_api_password": "",
+
+    "cores": "2",
+    "memory": "2048",
+    "disk_size": "10G",
+    "iso_file": "local:iso/debian-10.4.0-amd64-netinst.iso",
+
+    "template_name": "debian-10.4.0-amd64",
+    "template_description": "Standard Debian 10 installation. Built on {{ isotime \"2006-01-02T15:04:05Z\" }}",
+
+    "preseed_file": "preseed.cfg"
+  },
+  "builders": [
+    {
+      "type": "proxmox",
+      "proxmox_url": "https://{{ user `proxmox_host` }}/api2/json",
+      "insecure_skip_tls_verify": true,
+      "username": "{{ user `proxmox_api_user` }}",
+      "password": "{{ user `proxmox_api_password` }}",
+
+      "template_description": "{{ user `template_description` }}",
+      "node": "{{user `proxmox_node`}}",
+      "network_adapters": [
+        {
+          "model": "virtio",
+          "bridge": "vmbr0"
+        }
+      ],
+      "disks": [
+        {
+          "type": "scsi",
+          "disk_size": "{{ user `disk_size` }}",
+          "storage_pool": "local-lvm",
+          "storage_pool_type": "lvm-thin",
+          "format": "raw"
+        }
+      ],
+      "scsi_controller": "virtio-scsi-single",
+
+      "iso_file": "{{ user `iso_file` }}",
+      "http_directory": "./",
+      "boot_wait": "10s",
+      "boot_command": [
+        "<esc><wait>auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{ user `preseed_file` }}<enter>"
+      ],
+      "unmount_iso": true,
+
+      "vm_name": "{{ user `template_name` }}",
+      "memory": "{{ user `memory` }}",
+      "cpu_type": "EPYC",
+      "sockets": "1",
+      "cores": "{{ user `cores` }}",
+      "os": "l26",
+
+      "ssh_username": "root",
+      "ssh_password": "toor"
+    }
+  ]
+}
