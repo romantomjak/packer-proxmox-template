@@ -41,10 +41,10 @@ Build 'proxmox' finished.
 --> proxmox: A template was created: 102
 ```
 
-values from the `variables` section in `debian-10-buster.json` can be overidden like so:
+Values from the `variables` section in `debian-10-buster.json` can be overidden like so:
 
 ```
-$ packer build -var "memory=4096" -var "cores=4" debian-10-buster.json
+$ packer build -var "cores=4" -var "memory=4096" -var "disk=20G" debian-10-buster.json
 ```
 
 ## Deploy a VM from a Template
