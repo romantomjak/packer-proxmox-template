@@ -8,7 +8,7 @@
     "cores": "2",
     "memory": "2048",
     "disk": "10G",
-    "iso": "local:iso/debian-10.4.0-amd64-netinst.iso",
+    "iso_file": "local:iso/debian-10.4.0-amd64-netinst.iso",
 
     "template_name": "debian-10.4.0-amd64",
     "template_description": "Standard Debian 10 Buster installation. Built on {{ isotime \"2006-01-02T15:04:05Z\" }}",
@@ -43,7 +43,7 @@
       ],
       "scsi_controller": "virtio-scsi-single",
 
-      "iso_file": "{{ user `iso` }}",
+      "iso_file": "{{ user `iso_file` }}",
       "http_directory": "./",
       "boot_wait": "10s",
       "boot_command": [
