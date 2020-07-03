@@ -15,6 +15,7 @@
 
     "preseed_file": "preseed.cfg"
   },
+  "sensitive-variables": ["proxmox_api_password"],
   "builders": [
     {
       "type": "proxmox",
