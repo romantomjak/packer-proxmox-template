@@ -29,7 +29,8 @@
       "network_adapters": [
         {
           "model": "virtio",
-          "bridge": "vmbr0"
+          "bridge": "vmbr0",
+          "firewall": true
         }
       ],
       "disks": [
