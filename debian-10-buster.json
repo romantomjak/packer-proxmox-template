@@ -7,8 +7,8 @@
 
     "cores": "2",
     "memory": "2048",
-    "disk_size": "10G",
     "iso_file": "local:iso/debian-10.4.0-amd64-netinst.iso",
+    "disk": "10G",
 
     "template_name": "debian-10.4.0-amd64",
     "template_description": "Standard Debian 10 installation. Built on {{ isotime \"2006-01-02T15:04:05Z\" }}",
@@ -35,7 +35,7 @@
       "disks": [
         {
           "type": "scsi",
-          "disk_size": "{{ user `disk_size` }}",
+          "disk_size": "{{ user `disk` }}",
           "storage_pool": "local-lvm",
           "storage_pool_type": "lvm-thin",
           "format": "raw"
