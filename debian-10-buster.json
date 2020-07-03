@@ -11,7 +11,7 @@
     "disk": "10G",
 
     "template_name": "debian-10.4.0-amd64",
-    "template_description": "Standard Debian 10 installation. Built on {{ isotime \"2006-01-02T15:04:05Z\" }}",
+    "template_description": "Standard Debian 10 Buster installation. Built on {{ isotime \"2006-01-02T15:04:05Z\" }}",
 
     "preseed_file": "preseed.cfg"
   },
