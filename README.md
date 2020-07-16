@@ -15,6 +15,14 @@ Preseeding provides a way to answer questions asked during the installation proc
 
 This is the [preseed.cfg](preseed.cfg) that will be used to create the virtual machine template. It makes some assumptions such as what the root password should be (hint: it's `toor`) and a few other things, so be sure to check it out and modify to fit your needs.
 
+## Virtual machine initialization
+
+Cloud-init is the industry standard multi-distribution method for cross-platform instance initialization.
+
+This is the [cloud.cfg](cloud.cfg) that will be used to configure the virtual machine on first boot.
+
+Note that `cloud_init_public_ssh_key` variable will be used to replace the placeholder value `PACKER_CLOUD_INIT_PUBLIC_SSH_KEY` with your actual public key in `cloud.cfg` file. This is to avoid commiting public key into a git repository.
+
 ## Creating a new VM Template
 
 Templates provide an easy way to deploy many VMs of the same type.

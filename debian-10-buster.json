@@ -13,7 +13,8 @@
     "template_name": "debian-10.4.0-amd64",
     "template_description": "Standard Debian 10 Buster installation. Built on {{ isotime \"2006-01-02T15:04:05Z\" }}",
 
-    "preseed_file": "preseed.cfg"
+    "preseed_file": "preseed.cfg",
+    "cloud_init_public_ssh_key": ""
   },
   "sensitive-variables": ["proxmox_api_password"],
   "builders": [
@@ -52,6 +53,9 @@
       ],
       "unmount_iso": true,
 
+      "cloud_init": true,
+      "cloud_init_storage_pool": "local",
+
       "vm_name": "{{ user `template_name` }}",
       "memory": "{{ user `memory` }}",
       "cpu_type": "EPYC",
@@ -61,6 +65,17 @@
 
       "ssh_username": "root",
       "ssh_password": "toor"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "cloud.cfg",
+      "destination": "/etc/cloud/cloud.cfg"
+    },
+    {
+      "type": "shell",
+      "inline": ["sed -e 's^PACKER_CLOUD_INIT_PUBLIC_SSH_KEY^{{ user `cloud_init_public_ssh_key` }}^' -i /etc/cloud/cloud.cfg"]
     }
   ]
 }
