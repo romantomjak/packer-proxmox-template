@@ -19,7 +19,7 @@ Preseeding provides a way to answer questions asked during the installation proc
 
 Cloud-init is useful for initial machine configuration like creating users or preseeding `authorized_keys` file for SSH authentication. You can check out the configuration in [cloud.cfg](cloud.cfg).
 
-> The `cloud_init_public_ssh_key` variable must contain the public key you will use to authenticate with all machines built from this template. It will be used to preseed the `~/.ssh/authorized_keys` file. This is to avoid commiting public key into a git repository.
+> The `cloud_init_public_ssh_key` variable must contain the public key you will use to authenticate with all machines built from this template. It will be used to preseed the `~/.ssh/authorized_keys` file. It's a bit of a hack, but I want to avoid commiting public keys into a git repository
 
 ## Creating a new VM Template
 
