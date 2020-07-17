@@ -8,12 +8,7 @@
     "cores": "2",
     "memory": "2048",
     "disk": "10G",
-    "iso_file": "local:iso/debian-10.4.0-amd64-netinst.iso",
 
-    "template_name": "debian-10.4.0-amd64",
-    "template_description": "Standard Debian 10 Buster installation. Built on {{ isotime \"2006-01-02T15:04:05Z\" }}",
-
-    "preseed_file": "preseed.cfg",
     "cloud_init_public_ssh_key": ""
   },
   "sensitive-variables": ["proxmox_api_password"],
@@ -25,7 +20,7 @@
       "username": "{{ user `proxmox_api_user` }}",
       "password": "{{ user `proxmox_api_password` }}",
 
-      "template_description": "{{ user `template_description` }}",
+      "template_description": "Debian 10 cloud-init template. Built on {{ isotime \"2006-01-02T15:04:05Z\" }}",
       "node": "{{user `proxmox_node`}}",
       "network_adapters": [
         {
@@ -45,18 +40,18 @@
       ],
       "scsi_controller": "virtio-scsi-single",
 
-      "iso_file": "{{ user `iso_file` }}",
+      "iso_file": "local:iso/debian-10.4.0-amd64-netinst.iso",
       "http_directory": "./",
       "boot_wait": "10s",
       "boot_command": [
-        "<esc><wait>auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{ user `preseed_file` }}<enter>"
+        "<esc><wait>auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<enter>"
       ],
       "unmount_iso": true,
 
       "cloud_init": true,
       "cloud_init_storage_pool": "local",
 
-      "vm_name": "{{ user `template_name` }}",
+      "vm_name": "debian-10.4.0-amd64",
       "memory": "{{ user `memory` }}",
       "cpu_type": "EPYC",
       "sockets": "1",
