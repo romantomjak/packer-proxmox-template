@@ -59,7 +59,7 @@
       "os": "l26",
 
       "ssh_username": "root",
-      "ssh_password": "toor"
+      "ssh_password": "packer"
     }
   ],
   "provisioners": [
