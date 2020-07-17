@@ -7,25 +7,21 @@ Requirements:
 - [Packer](https://www.packer.io/downloads)
 - [Debian installation image](https://www.debian.org/distrib/) uploaded to Proxmox VE
 
-VM installation is usually done using an ISO image file and depending on the OS, this can be a time consuming task one might want to avoid.
+Launching a virtual machine requires an operating system to be installed. VM installation is usually done using an ISO image file and depending on the OS, this can be a time consuming task one might want to avoid.
+
+Templates provide an easy way to deploy many VMs of the same type, but naturally we don't want them to be _completely_ identical. They may need a different hostname, an IP address, etc.
 
 ## Automating Debian installation using preseeding
 
-Preseeding provides a way to answer questions asked during the installation process, without having to manually enter the answers while the installation is running.
+Preseeding provides a way to answer questions asked during the installation process, without having to manually enter the answers while the installation is running. You can check out the configuration for standard Debian 10 installation in [preseed.cfg](preseed.cfg).
 
-This is the [preseed.cfg](preseed.cfg) that will be used to create the virtual machine template. It makes some assumptions such as what the root password should be (hint: it's `toor`) and a few other things, so be sure to check it out and modify to fit your needs.
+## Post-installation configuration
 
-## Virtual machine initialization
+Cloud-init is useful for initial machine configuration like creating users or preseeding `authorized_keys` file for SSH authentication. You can check out the configuration in [cloud.cfg](cloud.cfg).
 
-Cloud-init is the industry standard multi-distribution method for cross-platform instance initialization.
-
-This is the [cloud.cfg](cloud.cfg) that will be used to configure the virtual machine on first boot.
-
-Note that `cloud_init_public_ssh_key` variable will be used to replace the placeholder value `PACKER_CLOUD_INIT_PUBLIC_SSH_KEY` with your actual public key in `cloud.cfg` file. This is to avoid commiting public key into a git repository.
+> The `cloud_init_public_ssh_key` variable must contain the public key you will use to authenticate with all machines built from this template. It will be used to preseed the `~/.ssh/authorized_keys` file. This is to avoid commiting public key into a git repository.
 
 ## Creating a new VM Template
-
-Templates provide an easy way to deploy many VMs of the same type.
 
 Templates are created by converting an existing VM to a template. As soon as the VM is converted, it cannot be started anymore. If you want to modify an existing template, you need to create a new template.
 
@@ -55,11 +51,17 @@ Values from the `variables` section in `debian-10-buster.json` can be overidden 
 $ packer build -var "cores=4" -var "memory=4096" -var "disk=20G" debian-10-buster.json
 ```
 
+or you can just as easily specify a file that contains the variables:
+
+```sh
+$ packer build -var-file example-variables.json debian-10-buster.json
+```
+
 ## Deploy a VM from a Template
 
 Right-click the template in Proxmox VE, and select "Clone".
 
-- **full clone** is a complete copy and is fully independent from the original VM or VM Template, but it requires the same disk space as the original. Useful while you don't have a stable base image
+- **full clone** is a complete copy and is fully independent from the original VM or VM Template, but it requires the same disk space as the original
 - **linked clone** requires less disk space but cannot run without access to the base VM Template. Not supported with LVM & ISCSI storage types
 
 ## License
