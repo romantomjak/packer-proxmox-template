@@ -64,6 +64,13 @@ Right-click the template in Proxmox VE, and select "Clone".
 - **full clone** is a complete copy and is fully independent from the original VM or VM Template, but it requires the same disk space as the original
 - **linked clone** requires less disk space but cannot run without access to the base VM Template. Not supported with LVM & ISCSI storage types
 
+## Contributing
+
+You can contribute in many ways and not just by changing the code! If you have
+any ideas, just open an issue and tell me what you think.
+
+Contributing code-wise - please fork the repository and submit a pull request.
+
 ## License
 
 MIT
