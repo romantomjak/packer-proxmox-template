@@ -3,18 +3,12 @@
     "proxmox_host": null,
     "proxmox_node": null,
     "proxmox_api_user": null,
-    "proxmox_api_password": null,
-
-    "cloud_init_public_ssh_key": null,
-
-    "cores": "2",
-    "memory": "2048",
-    "disk": "10G"
+    "proxmox_api_password": null
   },
   "sensitive-variables": ["proxmox_api_password"],
   "builders": [
     {
-      "type": "proxmox",
+      "type": "proxmox-iso",
       "proxmox_url": "https://{{ user `proxmox_host` }}/api2/json",
       "insecure_skip_tls_verify": true,
       "username": "{{ user `proxmox_api_user` }}",
@@ -32,7 +26,7 @@
       "disks": [
         {
           "type": "scsi",
-          "disk_size": "{{ user `disk` }}",
+          "disk_size": "10G",
           "storage_pool": "local-lvm",
           "storage_pool_type": "lvm-thin",
           "format": "raw"
@@ -52,10 +46,10 @@
       "cloud_init_storage_pool": "local",
 
       "vm_name": "debian-10.4.0-amd64",
-      "memory": "{{ user `memory` }}",
+      "memory": "2048",
       "cpu_type": "EPYC",
       "sockets": "1",
-      "cores": "{{ user `cores` }}",
+      "cores": "2",
       "os": "l26",
 
       "ssh_username": "root",
@@ -67,10 +61,6 @@
       "type": "file",
       "source": "cloud.cfg",
       "destination": "/etc/cloud/cloud.cfg"
-    },
-    {
-      "type": "shell",
-      "inline": ["sed -e 's^PACKER_CLOUD_INIT_PUBLIC_SSH_KEY^{{ user `cloud_init_public_ssh_key` }}^' -i /etc/cloud/cloud.cfg"]
     }
   ]
 }
