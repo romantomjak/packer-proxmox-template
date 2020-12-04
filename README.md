@@ -2,30 +2,26 @@
 
 Packer configuration for creating Debian 10 virtual machine templates for Proxmox VE.
 
-Requirements:
+## Requirements
 
-- [Packer](https://www.packer.io/downloads)
-- [Debian installation image](https://www.debian.org/distrib/) uploaded to Proxmox VE
+- [Packer](https://www.packer.io/downloads) 1.6.5+
+- [Proxmox VE](https://www.proxmox.com/en/proxmox-ve) 6.2+
 
-Launching a virtual machine requires an operating system to be installed. VM installation is usually done using an ISO image file and depending on the OS, this can be a time consuming task one might want to avoid.
+## Minimum background information
 
-Templates provide an easy way to deploy many VMs of the same type, but naturally we don't want them to be _completely_ identical. They may need a different hostname, an IP address, etc.
+Launching a virtual machine requires an operating system to be installed. VM installation is usually done using an ISO image file and depending on the OS, this can be a time consuming task one might want to avoid. Luckily, this can be automated using a process known as _preseeding_.
 
-## Automating Debian installation using preseeding
+> Preseeding provides a way to answer questions asked during the installation process, without having to manually enter the answers while the installation is running. You can check out the configuration for a standard Debian 10 installation in [preseed.cfg](preseed.cfg) and read more about this method in the [preseed documentation](https://wiki.debian.org/DebianInstaller/Preseed).
 
-Preseeding provides a way to answer questions asked during the installation process, without having to manually enter the answers while the installation is running. You can check out the configuration for standard Debian 10 installation in [preseed.cfg](preseed.cfg).
+Proxmox Templates provide an easy way to deploy many VMs of the same type, but naturally we don't want them to be _completely_ identical. They may need a different hostname, an IP address, etc. This is what _cloud-init_ takes care of.
 
-## Post-installation configuration
-
-Cloud-init is useful for initial machine configuration like creating users or preseeding `authorized_keys` file for SSH authentication. You can check out the configuration in [cloud.cfg](cloud.cfg).
-
-> The `cloud_init_public_ssh_key` variable must contain the public key you will use to authenticate with all machines built from this template. It will be used to preseed the `~/.ssh/authorized_keys` file. It's a bit of a hack, but I want to avoid commiting public keys into a git repository
+> Cloud-init is used for initial machine configuration like creating users or preseeding `authorized_keys` file for SSH authentication. You can check out the configuration in [cloud.cfg](cloud.cfg) and read more about this in [cloud-init documentation](https://cloudinit.readthedocs.io/en/latest/).
 
 ## Creating a new VM Template
 
 Templates are created by converting an existing VM to a template. As soon as the VM is converted, it cannot be started anymore. If you want to modify an existing template, you need to create a new template.
 
-Creating a VM template is easy:
+Here's how to do all that in one step:
 
 ```sh
 $ packer build debian-10-buster.json
@@ -48,7 +44,7 @@ Build 'proxmox' finished.
 Values from the `variables` section in `debian-10-buster.json` can be overidden like so:
 
 ```
-$ packer build -var "cores=4" -var "memory=4096" -var "disk=20G" debian-10-buster.json
+$ packer build -var "proxmox_host=10.10.0.10:8006" debian-10-buster.json
 ```
 
 or you can just as easily specify a file that contains the variables:
