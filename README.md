@@ -4,7 +4,7 @@ Packer configuration for creating Debian 10 virtual machine templates for Proxmo
 
 ## Requirements
 
-- [Packer](https://www.packer.io/downloads) 1.6.5+
+- [Packer](https://www.packer.io/downloads) 1.6.6+
 - [Proxmox VE](https://www.proxmox.com/en/proxmox-ve) 6.2+
 
 ## Minimum background information
