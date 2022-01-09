@@ -1,6 +1,6 @@
 # packer-proxmox-template
 
-Packer configuration for creating Debian 10 virtual machine templates for Proxmox VE.
+Packer configuration for creating Debian 11 virtual machine templates for Proxmox VE.
 
 ## Requirements
 
@@ -24,7 +24,7 @@ Templates are created by converting an existing VM to a template. As soon as the
 Here's how to do all that in one step:
 
 ```sh
-$ packer build debian-10-buster.json
+$ packer build debian-11-bullseye.json
 proxmox: output will be in this color.
 
 ==> proxmox: Creating VM
@@ -41,16 +41,16 @@ Build 'proxmox' finished.
 --> proxmox: A template was created: 102
 ```
 
-Values from the `variables` section in `debian-10-buster.json` can be overidden like so:
+Values from the `variables` section in `debian-11-bullseye.json` can be overidden like so:
 
 ```
-$ packer build -var "proxmox_host=10.10.0.10:8006" debian-10-buster.json
+$ packer build -var "proxmox_host=10.10.0.10:8006" debian-11-bullseye.json
 ```
 
 or you can just as easily specify a file that contains the variables:
 
 ```sh
-$ packer build -var-file example-variables.json debian-10-buster.json
+$ packer build -var-file example-variables.json debian-11-bullseye.json
 ```
 
 ## Deploy a VM from a Template

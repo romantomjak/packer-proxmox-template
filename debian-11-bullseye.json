@@ -14,7 +14,7 @@
       "username": "{{ user `proxmox_api_user` }}",
       "password": "{{ user `proxmox_api_password` }}",
 
-      "template_description": "Debian 10 cloud-init template. Built on {{ isotime \"2006-01-02T15:04:05Z\" }}",
+      "template_description": "Debian 11 cloud-init template. Built on {{ isotime \"2006-01-02T15:04:05Z\" }}",
       "node": "{{user `proxmox_node`}}",
       "network_adapters": [
         {
@@ -27,14 +27,15 @@
         {
           "type": "scsi",
           "disk_size": "10G",
-          "storage_pool": "local-lvm",
-          "storage_pool_type": "lvm-thin",
-          "format": "raw"
+          "storage_pool": "data",
+          "storage_pool_type": "lvm",
+          "format": "raw",
+          "io_thread": true
         }
       ],
       "scsi_controller": "virtio-scsi-single",
 
-      "iso_file": "local:iso/debian-10.4.0-amd64-netinst.iso",
+      "iso_file": "local:iso/debian-11.2.0-amd64-netinst.iso",
       "http_directory": "./",
       "boot_wait": "10s",
       "boot_command": [
@@ -45,7 +46,7 @@
       "cloud_init": true,
       "cloud_init_storage_pool": "local",
 
-      "vm_name": "debian-10.4.0-amd64",
+      "vm_name": "debian-11.2.0-amd64",
       "memory": "2048",
       "cpu_type": "EPYC",
       "sockets": "1",
