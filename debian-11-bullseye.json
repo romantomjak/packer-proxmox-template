@@ -26,7 +26,7 @@
       "disks": [
         {
           "type": "scsi",
-          "disk_size": "10G",
+          "disk_size": "20G",
           "storage_pool": "data",
           "storage_pool_type": "lvm",
           "format": "raw",
