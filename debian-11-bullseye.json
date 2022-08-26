@@ -35,7 +35,7 @@
       ],
       "scsi_controller": "virtio-scsi-single",
 
-      "iso_file": "local:iso/debian-11.3.0-amd64-netinst.iso",
+      "iso_file": "local:iso/debian-11.4.0-amd64-netinst.iso",
       "http_directory": "./",
       "boot_wait": "10s",
       "boot_command": [
@@ -46,7 +46,7 @@
       "cloud_init": true,
       "cloud_init_storage_pool": "local",
 
-      "vm_name": "debian-11.3.0-amd64",
+      "vm_name": "debian-11.4.0-amd64",
       "memory": "2048",
       "cpu_type": "EPYC",
       "sockets": "1",
