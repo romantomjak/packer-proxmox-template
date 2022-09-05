@@ -82,7 +82,7 @@ source "proxmox-iso" "debian-11" {
     storage_pool_type = var.disk_storage_pool_type
     type              = "scsi"
   }
-  scsi_controller      = "virtio-scsi-single"
+  scsi_controller = "virtio-scsi-single"
 
   iso_file       = var.cloudinit_iso_file
   http_directory = "./"
