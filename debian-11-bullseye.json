@@ -3,7 +3,16 @@
     "proxmox_host": null,
     "proxmox_node": null,
     "proxmox_api_user": null,
-    "proxmox_api_password": null
+    "proxmox_api_password": null,
+    "cloudinit_iso_file": "local:iso/debian-11.4.0-amd64-netinst.iso",
+    "cloudinit_storage_pool": "local",
+    "network_vlan": "",
+    "disk_size": "20G",
+    "disk_storage_pool": "data",
+    "disk_storage_pool_type": "lvm",
+    "disk_format": "raw",
+    "memory": "2048",
+    "cores": "2"
   },
   "sensitive-variables": ["proxmox_api_password"],
   "builders": [
@@ -15,27 +24,28 @@
       "password": "{{ user `proxmox_api_password` }}",
 
       "template_description": "Debian 11 cloud-init template. Built on {{ isotime \"2006-01-02T15:04:05Z\" }}",
-      "node": "{{user `proxmox_node`}}",
+      "node": "{{ user `proxmox_node` }}",
       "network_adapters": [
         {
           "model": "virtio",
           "bridge": "vmbr0",
-          "firewall": true
+          "firewall": true,
+          "vlan_tag": "{{ user `network_vlan` }}"
         }
       ],
       "disks": [
         {
           "type": "scsi",
-          "disk_size": "20G",
-          "storage_pool": "data",
-          "storage_pool_type": "lvm",
-          "format": "raw",
+          "disk_size": "{{ user `disk_size` }}",
+          "storage_pool": "{{ user `disk_storage_pool` }}",
+          "storage_pool_type": "{{ user `disk_storage_pool_type` }}",
+          "format": "{{ user `disk_format` }}",
           "io_thread": true
         }
       ],
       "scsi_controller": "virtio-scsi-single",
 
-      "iso_file": "local:iso/debian-11.4.0-amd64-netinst.iso",
+      "iso_file": "{{ user `cloudinit_iso_file` }}",
       "http_directory": "./",
       "boot_wait": "10s",
       "boot_command": [
@@ -44,13 +54,13 @@
       "unmount_iso": true,
 
       "cloud_init": true,
-      "cloud_init_storage_pool": "local",
+      "cloud_init_storage_pool": "{{ user `cloudinit_storage_pool` }}",
 
       "vm_name": "debian-11.4.0-amd64",
-      "memory": "2048",
+      "memory": "{{ user `memory` }}",
       "cpu_type": "EPYC",
       "sockets": "1",
-      "cores": "2",
+      "cores": "{{ user `cores` }}",
       "os": "l26",
 
       "ssh_username": "root",
