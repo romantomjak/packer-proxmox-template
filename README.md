@@ -24,7 +24,7 @@ Templates are created by converting an existing VM to a template. As soon as the
 Here's how to do all that in one step:
 
 ```sh
-$ packer build debian-11-bullseye.json
+$ packer build debian-11-bullseye.pkr.hcl
 proxmox: output will be in this color.
 
 ==> proxmox: Creating VM
@@ -41,16 +41,16 @@ Build 'proxmox' finished.
 --> proxmox: A template was created: 102
 ```
 
-Values from the `variables` section in `debian-11-bullseye.json` can be overidden like so:
+Variables from the `debian-11-bullseye.pkr.hcl` can be overidden like so:
 
 ```
-$ packer build -var "proxmox_host=10.10.0.10:8006" debian-11-bullseye.json
+$ packer build -var "proxmox_host=10.10.0.10:8006" debian-11-bullseye.pkr.hcl
 ```
 
 or you can just as easily specify a file that contains the variables:
 
 ```sh
-$ packer build -var-file example-variables.json debian-11-bullseye.json
+$ packer build -var-file example-variables.pkrvars.hcl debian-11-bullseye.pkr.hcl
 ```
 
 ## Deploy a VM from a Template
