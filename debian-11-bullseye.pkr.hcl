@@ -3,11 +3,6 @@ variable "cloudinit_iso_file" {
   default = "local:iso/debian-11.4.0-amd64-netinst.iso"
 }
 
-variable "cloudinit_storage_pool" {
-  type    = string
-  default = "local"
-}
-
 variable "cores" {
   type    = string
   default = "2"
@@ -91,7 +86,6 @@ source "proxmox-iso" "debian-11" {
   unmount_iso    = true
 
   cloud_init              = true
-  cloud_init_storage_pool = var.cloudinit_storage_pool
 
   vm_name  = "debian-11.4.0-amd64"
   cpu_type = "EPYC"
