@@ -1,4 +1,4 @@
-variable "cloudinit_iso_file" {
+variable "iso_file" {
   type    = string
   default = "local:iso/debian-11.4.0-amd64-netinst.iso"
 }
@@ -79,13 +79,12 @@ source "proxmox-iso" "debian-11" {
   }
   scsi_controller = "virtio-scsi-single"
 
-  iso_file       = var.cloudinit_iso_file
+  iso_file       = var.iso_file
   http_directory = "./"
   boot_wait      = "10s"
   boot_command   = ["<esc><wait>auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<enter>"]
   unmount_iso    = true
-
-  cloud_init              = true
+  cloud_init     = true
 
   vm_name  = "debian-11.4.0-amd64"
   cpu_type = "EPYC"
