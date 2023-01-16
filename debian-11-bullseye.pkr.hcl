@@ -94,7 +94,7 @@ source "proxmox-iso" "debian-11" {
   cloud_init_storage_pool = var.cloudinit_storage_pool
 
   vm_name  = "debian-11.4.0-amd64"
-  cpu_type = "EPYC"
+  cpu_type = "host"
   os       = "l26"
   memory   = var.memory
   cores    = var.cores
