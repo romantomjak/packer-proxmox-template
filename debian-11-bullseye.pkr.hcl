@@ -33,6 +33,11 @@ variable "disk_storage_pool_type" {
   default = "lvm"
 }
 
+variable "cpu_type" {
+  type = string
+  default = "kvm64"
+}
+
 variable "memory" {
   type    = string
   default = "2048"
@@ -93,8 +98,8 @@ source "proxmox-iso" "debian-11" {
   cloud_init              = true
   cloud_init_storage_pool = var.cloudinit_storage_pool
 
-  cpu_type = "EPYC"
   vm_name  = "debian-11.6.0-amd64"
+  cpu_type = var.cpu_type
   os       = "l26"
   memory   = var.memory
   cores    = var.cores
