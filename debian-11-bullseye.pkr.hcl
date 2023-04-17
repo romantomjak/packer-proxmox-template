@@ -5,7 +5,7 @@ variable "iso_file" {
 
 variable "cloudinit_storage_pool" {
   type    = string
-  default = "local"
+  default = "local-lvm"
 }
 
 variable "cores" {
@@ -25,7 +25,7 @@ variable "disk_size" {
 
 variable "disk_storage_pool" {
   type    = string
-  default = "data"
+  default = "local-lvm"
 }
 
 variable "disk_storage_pool_type" {
