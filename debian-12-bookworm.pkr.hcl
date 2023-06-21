@@ -1,6 +1,6 @@
 variable "iso_file" {
   type    = string
-  default = "local:iso/debian-11.6.0-amd64-netinst.iso"
+  default = "local:iso/debian-12.0.0-amd64-netinst.iso"
 }
 
 variable "cloudinit_storage_pool" {
@@ -65,13 +65,13 @@ variable "proxmox_node" {
   type = string
 }
 
-source "proxmox-iso" "debian-11" {
+source "proxmox-iso" "debian-12" {
   proxmox_url              = "https://${var.proxmox_host}/api2/json"
   insecure_skip_tls_verify = true
   username                 = var.proxmox_api_user
   password                 = var.proxmox_api_password
 
-  template_description = "Debian 11 cloud-init template. Built on ${formatdate("YYYY-MM-DD hh:mm:ss ZZZ", timestamp())}"
+  template_description = "Debian 12 cloud-init template. Built on ${formatdate("YYYY-MM-DD hh:mm:ss ZZZ", timestamp())}"
   node                 = var.proxmox_node
   network_adapters {
     bridge   = "vmbr0"
@@ -98,7 +98,7 @@ source "proxmox-iso" "debian-11" {
   cloud_init              = true
   cloud_init_storage_pool = var.cloudinit_storage_pool
 
-  vm_name  = "debian-11.6.0-amd64"
+  vm_name  = "debian-12.0.0-amd64"
   cpu_type = var.cpu_type
   os       = "l26"
   memory   = var.memory
@@ -110,7 +110,7 @@ source "proxmox-iso" "debian-11" {
 }
 
 build {
-  sources = ["source.proxmox-iso.debian-11"]
+  sources = ["source.proxmox-iso.debian-12"]
 
   provisioner "file" {
     destination = "/etc/cloud/cloud.cfg"
