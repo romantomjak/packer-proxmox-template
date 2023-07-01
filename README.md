@@ -19,7 +19,9 @@ Proxmox Templates provide an easy way to deploy many VMs of the same type, but n
 
 :rotating_light: **IMPORTANT!** :rotating_light:
 
-Do not forget to replace `ssh_authorized_keys` in `cloud.cfg` with your own public keys as otherwise you won't be able to log in to the machine since cloud-init is configured to set the root password to a random one after the template has been built. The public SSH keys will added to a password-less sudo user named `debian`.
+Do not forget to replace `ssh_authorized_keys` in `cloud.cfg` with your own public keys as otherwise you won't be able to log in to the machine since cloud-init is configured to set the root password to a random one after the template has been built.
+
+The public SSH keys will added to a password-less sudo user named `debian`.
 
 ## Creating a new VM Template
 
@@ -50,7 +52,7 @@ Build 'proxmox' finished.
 Packer automatically loads any var file that matches the name `*.auto.pkrvars.hcl`, without the need to pass the file via the command line. If you rename the example variable definitions file from `example-variables.pkrvars.hcl` to `example-variables.auto.pkrvars.hcl`, then you can run the build just by calling:
 
 ```sh
-packer build .
+$ packer build .
 ```
 
 ## Deploy a VM from a Template
