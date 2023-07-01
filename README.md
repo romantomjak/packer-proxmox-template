@@ -17,8 +17,9 @@ Proxmox Templates provide an easy way to deploy many VMs of the same type, but n
 
 > Cloud-init is used for initial machine configuration like creating users or preseeding `authorized_keys` file for SSH authentication. You can check out the configuration in [cloud.cfg](cloud.cfg) and read more about this in [cloud-init documentation](https://cloudinit.readthedocs.io/en/latest/).
 
-> :rotating_light: **IMPORTANT!** :rotating_light:
-> Do not forget to replace `ssh_authorized_keys` in `cloud.cfg` with your own public keys as otherwise you won't be able to log in to the machine since cloud-init is configured to set the root password to a random one after the template has been built.
+:rotating_light: **IMPORTANT!** :rotating_light:
+
+Do not forget to replace `ssh_authorized_keys` in `cloud.cfg` with your own public keys as otherwise you won't be able to log in to the machine since cloud-init is configured to set the root password to a random one after the template has been built.
 
 ## Creating a new VM Template
 
