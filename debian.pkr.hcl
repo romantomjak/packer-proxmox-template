@@ -105,7 +105,7 @@ source "proxmox-iso" "debian" {
   cloud_init              = true
   cloud_init_storage_pool = var.cloudinit_storage_pool
 
-  vm_name  = basename(var.iso_file)
+  vm_name  = trimsuffix(basename(var.iso_file), ".iso")
   cpu_type = var.cpu_type
   os       = "l26"
   memory   = var.memory
