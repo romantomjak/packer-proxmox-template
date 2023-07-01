@@ -4,7 +4,7 @@ Packer configuration for creating Debian virtual machine templates for Proxmox V
 
 ## Requirements
 
-- [Packer](https://www.packer.io/downloads) 1.7.1+
+- [Packer](https://www.packer.io/downloads) 1.9.1+
 - [Proxmox VE](https://www.proxmox.com/en/proxmox-ve) 6.2+
 
 ## Minimum background information
@@ -28,7 +28,7 @@ Templates are created by converting an existing VM to a template. As soon as the
 Here's how to do all that in one step:
 
 ```sh
-$ packer build debian.pkr.hcl
+$ packer build -var-file example-variables.pkrvars.hcl .
 proxmox: output will be in this color.
 
 ==> proxmox: Creating VM
@@ -45,17 +45,7 @@ Build 'proxmox' finished.
 --> proxmox: A template was created: 102
 ```
 
-Variables from the `debian.pkr.hcl` can be overidden like so:
-
-```
-$ packer build -var "proxmox_host=10.10.0.10:8006" debian.pkr.hcl
-```
-
-or you can just as easily specify a file that contains the variables:
-
-```sh
-$ packer build -var-file example-variables.pkrvars.hcl debian.pkr.hcl
-```
+> :books: **Tip!** Packer automatically loads any var file that matches the name *.auto.pkrvars.hcl, without the need to pass the file via the command line. If you rename the example variable definitions file from example-variables.pkrvars.hcl to example-variables.auto.pkrvars.hcl, then you can run the build simply by calling: `packer build .`
 
 ## Deploy a VM from a Template
 
