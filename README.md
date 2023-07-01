@@ -19,7 +19,7 @@ Proxmox Templates provide an easy way to deploy many VMs of the same type, but n
 
 :rotating_light: **IMPORTANT!** :rotating_light:
 
-Do not forget to replace `ssh_authorized_keys` in `cloud.cfg` with your own public keys as otherwise you won't be able to log in to the machine since cloud-init is configured to set the root password to a random one after the template has been built.
+Do not forget to replace `ssh_authorized_keys` in `cloud.cfg` with your own public keys as otherwise you won't be able to log in to the machine since cloud-init is configured to set the root password to a random one after the template has been built. The public SSH keys will added to a password-less sudo user named `debian`.
 
 ## Creating a new VM Template
 
