@@ -1,6 +1,6 @@
 # packer-proxmox-template
 
-Packer configuration for creating Debian 11 virtual machine templates for Proxmox VE.
+Packer configuration for creating Debian virtual machine templates for Proxmox VE.
 
 ## Requirements
 
@@ -11,11 +11,14 @@ Packer configuration for creating Debian 11 virtual machine templates for Proxmo
 
 Launching a virtual machine requires an operating system to be installed. VM installation is usually done using an ISO image file and depending on the OS, this can be a time consuming task one might want to avoid. Luckily, this can be automated using a process known as _preseeding_.
 
-> Preseeding provides a way to answer questions asked during the installation process, without having to manually enter the answers while the installation is running. You can check out the configuration for a standard Debian 10 installation in [preseed.cfg](preseed.cfg) and read more about this method in the [preseed documentation](https://wiki.debian.org/DebianInstaller/Preseed).
+> Preseeding provides a way to answer questions asked during the installation process, without having to manually enter the answers while the installation is running. You can check out the configuration for a standard Debian installation in [preseed.cfg](preseed.cfg) and read more about this method in the [preseed documentation](https://wiki.debian.org/DebianInstaller/Preseed).
 
 Proxmox Templates provide an easy way to deploy many VMs of the same type, but naturally we don't want them to be _completely_ identical. They may need a different hostname, an IP address, etc. This is what _cloud-init_ takes care of.
 
 > Cloud-init is used for initial machine configuration like creating users or preseeding `authorized_keys` file for SSH authentication. You can check out the configuration in [cloud.cfg](cloud.cfg) and read more about this in [cloud-init documentation](https://cloudinit.readthedocs.io/en/latest/).
+
+> :rotating_light: **IMPORTANT!** :rotating_light:
+> Do not forget to replace `ssh_authorized_keys` in `cloud.cfg` with your own public keys as otherwise you won't be able to log in to the machine since cloud-init is configured to set the root password to a random one after the template has been built.
 
 ## Creating a new VM Template
 
@@ -24,7 +27,7 @@ Templates are created by converting an existing VM to a template. As soon as the
 Here's how to do all that in one step:
 
 ```sh
-$ packer build debian-11-bullseye.pkr.hcl
+$ packer build debian.pkr.hcl
 proxmox: output will be in this color.
 
 ==> proxmox: Creating VM
@@ -41,16 +44,16 @@ Build 'proxmox' finished.
 --> proxmox: A template was created: 102
 ```
 
-Variables from the `debian-11-bullseye.pkr.hcl` can be overidden like so:
+Variables from the `debian.pkr.hcl` can be overidden like so:
 
 ```
-$ packer build -var "proxmox_host=10.10.0.10:8006" debian-11-bullseye.pkr.hcl
+$ packer build -var "proxmox_host=10.10.0.10:8006" debian.pkr.hcl
 ```
 
 or you can just as easily specify a file that contains the variables:
 
 ```sh
-$ packer build -var-file example-variables.pkrvars.hcl debian-11-bullseye.pkr.hcl
+$ packer build -var-file example-variables.pkrvars.hcl debian.pkr.hcl
 ```
 
 ## Deploy a VM from a Template
