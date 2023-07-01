@@ -8,7 +8,7 @@ packer {
 }
 
 variable "iso_file" {
-  type    = string
+  type = string
 }
 
 variable "cloudinit_storage_pool" {
@@ -37,7 +37,7 @@ variable "disk_storage_pool" {
 }
 
 variable "cpu_type" {
-  type = string
+  type    = string
   default = "kvm64"
 }
 
@@ -88,11 +88,11 @@ source "proxmox-iso" "debian" {
     vlan_tag = var.network_vlan
   }
   disks {
-    disk_size         = var.disk_size
-    format            = var.disk_format
-    io_thread         = true
-    storage_pool      = var.disk_storage_pool
-    type              = "scsi"
+    disk_size    = var.disk_size
+    format       = var.disk_format
+    io_thread    = true
+    storage_pool = var.disk_storage_pool
+    type         = "scsi"
   }
   scsi_controller = "virtio-scsi-single"
 
