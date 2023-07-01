@@ -45,7 +45,13 @@ Build 'proxmox' finished.
 --> proxmox: A template was created: 102
 ```
 
-> :books: **Tip!** Packer automatically loads any var file that matches the name *.auto.pkrvars.hcl, without the need to pass the file via the command line. If you rename the example variable definitions file from example-variables.pkrvars.hcl to example-variables.auto.pkrvars.hcl, then you can run the build simply by calling: `packer build .`
+:books: **Tip!**
+
+Packer automatically loads any var file that matches the name `*.auto.pkrvars.hcl`, without the need to pass the file via the command line. If you rename the example variable definitions file from `example-variables.pkrvars.hcl` to `example-variables.auto.pkrvars.hcl`, then you can run the build just by calling:
+
+```sh
+packer build .
+```
 
 ## Deploy a VM from a Template
 
