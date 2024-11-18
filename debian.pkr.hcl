@@ -96,11 +96,14 @@ source "proxmox-iso" "debian" {
   }
   scsi_controller = "virtio-scsi-single"
 
-  iso_file       = var.iso_file
   http_directory = "./"
   boot_wait      = "10s"
   boot_command   = ["<esc><wait>auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<enter>"]
-  unmount_iso    = true
+  boot_iso {
+    type = "scsi"
+    iso_file = var.iso_file
+    unmount = true
+  }
 
   cloud_init              = true
   cloud_init_storage_pool = var.cloudinit_storage_pool
