@@ -116,6 +116,9 @@ source "proxmox-iso" "debian" {
   sockets  = "1"
   machine  = var.machine_type
 
+  # Trixie installation can take more than 5m, so allow 10m for SSH.
+  ssh_timeout = "10m"
+
   # Note: this password is needed by packer to run the file provisioner, but
   # once that is done - the password will be set to random one by cloud init.
   ssh_password = "packer"
